@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | 𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+      position: relative;
+      z-index: 5;
+    }
+    .admin-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--gold-border);
+      margin-bottom: 2rem;
+    }
+    .storage-notice {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid var(--gold-border-bright);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.25rem;
+      font-size: 0.9rem;
+      color: #e8dec8;
+    }
+    .storage-notice strong {
+      color: var(--gold-light);
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-card {
+      border-radius: 20px;
+      padding: 1.85rem;
+    }
+    .admin-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--gold-light);
+      margin-bottom: 1.25rem;
+    }
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.78rem 1rem;
+      border-radius: 10px;
+      background: rgba(8, 8, 10, 0.85);
+      border: 1px solid var(--gold-border);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--gold-light);
+    }
+    textarea.form-control {
+      min-height: 105px;
+      resize: vertical;
+    }
+    .dp-preview-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.65rem;
+    }
+    .dp-preview-box img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold-primary);
+    }
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+    .btn-sm {
+      padding: 0.65rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--gold-border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-main);
+      transition: var(--transition-fast);
+    }
+    .btn-sm:hover {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+    .btn-danger {
+      border-color: rgba(220, 75, 75, 0.45);
+      color: #ff8c8c;
+    }
+    .btn-danger:hover {
+      background: rgba(220, 75, 75, 0.16);
+      border-color: #ff8c8c;
+    }
+    .member-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--gold-border);
+      margin-bottom: 0.85rem;
+    }
+    .member-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.95rem;
+      min-width: 0;
+    }
+    .member-item-left img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gold-primary);
+      flex-shrink: 0;
+    }
+    .member-item-meta {
+      min-width: 0;
+    }
+    .member-item-meta h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .member-item-meta span {
+      font-size: 0.82rem;
+      color: var(--gold-light);
+    }
+    .member-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .order-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-border);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold-light);
+      cursor: pointer;
+    }
+    .order-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <div class="admin-topbar">
+      <div>
+        <span class="section-kicker">CONTROL PANEL</span>
+        <h1 class="section-title" style="font-size: 1.9rem;">𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ — Member Manager</h1>
+      </div>
+      <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+        <button id="exportCodeBtn" class="btn-sm" title="Copy updated members.js code for GitHub">📋 Copy members.js Code</button>
+        <a href="index.html" class="btn-gold-primary">← Back to Showcase</a>
+      </div>
+    </div>
+
+    <!-- Honest Browser Storage Disclosure -->
+    <div class="storage-notice">
+      <strong>Important Note on Saving:</strong> Changes made here are saved inside your current browser's <code>localStorage</code> (so you will see them immediately on this device). Because GitHub Pages is a static host, edits made in <code>localStorage</code> do not automatically sync to other members' phones. To publish changes permanently for everyone, click <strong>"Copy members.js Code"</strong> above and paste it into your <code>members.js</code> file on GitHub.
+    </div>
+
+    <div class="admin-grid">
+      <!-- Left: Add / Edit Form -->
+      <div class="admin-card glass-panel">
+        <h2 id="formTitle">Add New Member</h2>
+        <form id="memberForm">
+          <input type="hidden" id="editMemberId" value="" />
+
+          <div class="form-group">
+            <label for="memberName">Display Name *</label>
+            <input type="text" id="memberName" class="form-control" placeholder="e.g. Aarav Sharma" required />
+          </div>
+
+          <div class="form-group">
+            <label for="memberUsername">Instagram Username *</label>
+            <input type="text" id="memberUsername" class="form-control" placeholder="e.g. subkifavbachihu (without @)" required />
+          </div>
+
+          <div class="form-group">
+            <label for="memberAvatarPath">Profile Picture Path or URL</label>
+            <input type="text" id="memberAvatarPath" class="form-control" placeholder="assets/member-11.jpg" />
+          </div>
+
+          <div class="form-group">
+            <label for="memberAvatarFile">Or Upload DP from Device (JPG/PNG/WebP)</label>
+            <input type="file" id="memberAvatarFile" class="form-control" accept="image/jpeg,image/png,image/webp" />
+            <div class="dp-preview-box">
+              <img id="dpPreviewImg" src="" alt="DP Preview" />
+              <span style="font-size:0.78rem; color:var(--text-muted);">Live DP Preview (Auto-compressed for smooth storage)</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="memberBio">Personalised Introduction *</label>
+            <textarea id="memberBio" class="form-control" placeholder="Write a memorable introduction for this member..." required></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn-gold-primary" id="saveBtn">Save Member</button>
+            <button type="button" class="btn-sm hidden" id="cancelEditBtn">Cancel Edit</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right: Existing Members Roster & Reordering -->
+      <div class="admin-card glass-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.5rem;">
+          <h2 style="margin:0;">Current Roster (<span id="adminCount">0</span>)</h2>
+          <button id="resetDefaultBtn" class="btn-sm btn-danger">Reset to Default 10</button>
+        </div>
+        <div id="adminMembersList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="members.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let members = window.GoldenDaysStore.getMembers();
+      let uploadedBase64 = "";
+
+      const memberForm = document.getElementById("memberForm");
+      const formTitle = document.getElementById("formTitle");
+      const editMemberId = document.getElementById("editMemberId");
+      const memberName = document.getElementById("memberName");
+      const memberUsername = document.getElementById("memberUsername");
+      const memberAvatarPath = document.getElementById("memberAvatarPath");
+      const memberAvatarFile = document.getElementById("memberAvatarFile");
+      const dpPreviewImg = document.getElementById("dpPreviewImg");
+      const memberBio = document.getElementById("memberBio");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+      const adminMembersList = document.getElementById("adminMembersList");
+      const adminCount = document.getElementById("adminCount");
+      const resetDefaultBtn = document.getElementById("resetDefaultBtn");
+      const exportCodeBtn = document.getElementById("exportCodeBtn");
+
+      dpPreviewImg.src = createFallbackDP("GD");
+
+      // Compress uploaded image via Canvas so localStorage never overflows
+      memberAvatarFile.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const MAX_SIZE = 420;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_SIZE) {
+                height *= MAX_SIZE / width;
+                width = MAX_SIZE;
+              }
+            } else {
+              if (height > MAX_SIZE) {
+                width *= MAX_SIZE / height;
+                height = MAX_SIZE;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            uploadedBase64 = canvas.toDataURL("image/jpeg", 0.84);
+            dpPreviewImg.src = uploadedBase64;
+            memberAvatarPath.value = "";
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      memberAvatarPath.addEventListener("input", () => {
+        if (memberAvatarPath.value.trim()) {
+          uploadedBase64 = "";
+          dpPreviewImg.src = memberAvatarPath.value.trim();
+          dpPreviewImg.onerror = () => { dpPreviewImg.src = createFallbackDP(memberName.value || "GD"); };
+        }
+      });
+
+      function resetForm() {
+        editMemberId.value = "";
+        memberForm.reset();
+        uploadedBase64 = "";
+        dpPreviewImg.src = createFallbackDP("GD");
+        formTitle.textContent = "Add New Member";
+        cancelEditBtn.classList.add("hidden");
+      }
+
+      cancelEditBtn.addEventListener("click", resetForm);
+
+      function renderAdminList() {
+        adminCount.textContent = members.length;
+        adminMembersList.innerHTML = "";
+
+        members.forEach((m, index) => {
+          const cleanUser = window.GoldenDaysStore.sanitizeUsername(m.username);
+          const row = document.createElement("div");
+          row.className = "member-list-item";
+          row.innerHTML = `
+            <div class="member-item-left">
+              <img src="${m.avatar || createFallbackDP(m.name)}" alt="${m.name}" />
+              <div class="member-item-meta">
+                <h4>#${index + 1} ${m.name}</h4>
+                <span>@${cleanUser}</span>
+              </div>
+            </div>
+            <div class="member-item-actions">
+              <button class="order-btn" data-action="up" data-idx="${index}" ${index === 0 ? "disabled" : ""} title="Move Up">↑</button>
+              <button class="order-btn" data-action="down" data-idx="${index}" ${index === members.length - 1 ? "disabled" : ""} title="Move Down">↓</button>
+              <button class="btn-sm" data-action="edit" data-idx="${index}">Edit</button>
+              <button class="btn-sm btn-danger" data-action="delete" data-idx="${index}">Delete</button>
+            </div>
+          `;
+
+          const img = row.querySelector("img");
+          img.onerror = () => { img.src = createFallbackDP(m.name); };
+          adminMembersList.appendChild(row);
+        });
+      }
+
+      adminMembersList.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+        const action = btn.dataset.action;
+        const idx = Number(btn.dataset.idx);
+
+        if (action === "up" && idx > 0) {
+          [members[idx - 1], members[idx]] = [members[idx], members[idx - 1]];
+          window.GoldenDaysStore.saveMembers(members);
+          renderAdminList();
+        } else if (action === "down" && idx < members.length - 1) {
+          [members[idx], members[idx + 1]] = [members[idx + 1], members[idx]];
+          window.GoldenDaysStore.saveMembers(members);
+          renderAdminList();
+        } else if (action === "edit") {
+          const m = members[idx];
+          editMemberId.value = m.id;
+          memberName.value = m.name;
+          memberUsername.value = window.GoldenDaysStore.sanitizeUsername(m.username);
+          memberBio.value = m.bio;
+          if (m.avatar && m.avatar.startsWith("data:")) {
+            uploadedBase64 = m.avatar;
+            memberAvatarPath.value = "";
+            dpPreviewImg.src = m.avatar;
+          } else {
+            uploadedBase64 = "";
+            memberAvatarPath.value = m.avatar || "";
+            dpPreviewImg.src = m.avatar || createFallbackDP(m.name);
+          }
+          formTitle.textContent = `Edit Member: ${m.name}`;
+          cancelEditBtn.classList.remove("hidden");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else if (action === "delete") {
+          if (confirm(`Remove ${members[idx].name} from Golden Days?`)) {
+            members.splice(idx, 1);
+            window.GoldenDaysStore.saveMembers(members);
+            renderAdminList();
+          }
+        }
+      });
+
+      memberForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nameVal = memberName.value.trim();
+        const userVal = window.GoldenDaysStore.sanitizeUsername(memberUsername.value);
+        const bioVal = memberBio.value.trim();
+        const nextNum = String(members.length + 1).padStart(2, "0");
+        const avatarVal = uploadedBase64 || memberAvatarPath.value.trim() || `assets/member-${nextNum}.jpg`;
+
+        if (editMemberId.value) {
+          const targetIdx = members.findIndex(item => item.id === editMemberId.value);
+          if (targetIdx !== -1) {
+            members[targetIdx] = {
+              ...members[targetIdx],
+              name: nameVal,
+              username: userVal,
+              avatar: avatarVal,
+              bio: bioVal
+            };
+          }
+        } else {
+          members.push({
+            id: "m-" + Date.now(),
+            name: nameVal,
+            username: userVal,
+            avatar: avatarVal,
+            bio: bioVal
+          });
+        }
+
+        window.GoldenDaysStore.saveMembers(members);
+        renderAdminList();
+        resetForm();
+      });
+
+      resetDefaultBtn.addEventListener("click", () => {
+        if (confirm("Reset all members back to the default 10 Golden Days members?")) {
+          members = window.GoldenDaysStore.resetToDefaults();
+          renderAdminList();
+          resetForm();
+        }
+      });
+
+      exportCodeBtn.addEventListener("click", () => {
+        const cleanExport = members.map((m, i) => ({
+          id: `m-${String(i + 1).padStart(2, "0")}`,
+          name: m.name,
+          username: window.GoldenDaysStore.sanitizeUsername(m.username),
+          avatar: m.avatar.startsWith("data:") ? `assets/member-${String(i + 1).padStart(2, "0")}.jpg` : m.avatar,
+          bio: m.bio
+        }));
+        const codeSnippet = `const DEFAULT_MEMBERS = ${JSON.stringify(cleanExport, null, 2)};`;
+        navigator.clipboard.writeText(codeSnippet).then(() => {
+          alert("Copied updated DEFAULT_MEMBERS array! Paste it into members.js so all visitors see your changes.");
+        });
+      });
+
+      renderAdminList();
+    });
+  </script>
+</body>
+</html>
