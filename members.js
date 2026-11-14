@@ -2,12 +2,12 @@
  * ============================================================================
  * GOLDEN DAYS — MEMBER DATA & STORAGE ENGINE (members.js)
  * ============================================================================
- * Updated with your 10 Golden Days Inner Circle Members & Custom Bios!
+ * Updated: 1st member name set to Aryan (@1nd_mp48), 2nd is Tanya (@saanaakh.___).
  */
 
-const STORAGE_KEY = "golden_days_members_v1";
+const STORAGE_KEY = "golden_days_members_v4";
 
-// Automatic Royal Gold Monogram Fallback (jab tak aap DP upload nahi karte)
+// Automatic Royal Gold Monogram Fallback (agar photo load na ho)
 function createFallbackDP(name = "GD") {
   const clean = name.replace(/[^a-zA-Z0-9\s]/g, "").trim();
   const initials = clean
@@ -41,77 +41,105 @@ function createFallbackDP(name = "GD") {
   return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
 }
 
-// Aapke 10 Original Group Members
+// All 14 Members Ordered (Aryan 1st, Tanya 2nd)
 const DEFAULT_MEMBERS = [
   {
     id: "m-01",
-    name: "Subki Fav Bachi",
-    username: "subkifavbachihu",
-    avatar: "assets/member-01.jpg",
-    bio: "The undisputed heart and charm of Golden Days. Her vibe turns ordinary group chats into unforgettable memories, and honestly, the title says it all—truly everyone's favorite."
+    name: "Aryan",
+    username: "1nd_mp48",
+    avatar: "member-01.jpg",
+    bio: "Golden Days ke mastermind aur group ke sabse main sadasya. Inke bina yeh group aur website dono adhoore hain—pura squad inhi ke dum par chalta hai!"
   },
   {
     id: "m-02",
-    name: "Killar Prince",
-    username: "killar_prince_0703",
-    avatar: "assets/member-02.jpg",
-    bio: "Royalty in attitude and loyalty in friendship. Always arrives with unmatched aura, bold energy, and stands solid with the circle no matter what."
+    name: "Tanya",
+    username: "saanaakh.___",
+    avatar: "member-02.jpg",
+    bio: "Group ki sabse badi mazaakiya aur natkhat soul! Har waqt sabke sath hasi-mazak karna aur sabki taang kheechhna inka roz ka kaam hai, inke bina chat mein rang hi nahi aata."
   },
   {
     id: "m-03",
-    name: "Mystery Soul 07",
-    username: "_.3122007",
-    avatar: "assets/member-03.jpg",
-    bio: "A rare blend of calm mystery and sharp wit. Speaks less, observes everything, and drops the most iconic lines when nobody expects it."
+    name: "Subki Fav Bachi",
+    username: "subkifavbachihu",
+    avatar: "member-03.jpg",
+    bio: "Group ki sabse pyari bachi, jinki cute baatein aur sweet vibe poore chat box ka mood ek second mein bright kar deti hain."
   },
   {
     id: "m-04",
-    name: "Tabish",
-    username: "tabish_hoon",
-    avatar: "assets/member-04.jpg",
-    bio: "Pure authenticity with zero filters. Whether it is midnight laughs, real talk, or keeping the brotherhood alive, Tabish brings effortless warmth to every conversation."
+    name: "Killar Prince",
+    username: "killar_prince_0703",
+    avatar: "member-04.jpg",
+    bio: "Naam mein hi Prince hai toh style toh royal hoga hi! Group ke fearless aur shandaar sadasya jo har mauke par dosto ke liye khade rehte hain."
   },
   {
     id: "m-05",
-    name: "Mr. Pandey",
-    username: "mr.pandey_2208",
-    avatar: "assets/member-05.jpg",
-    bio: "The pillar of wisdom, humor, and legendary comebacks. Always ready with solid advice and the kind of loyalty that defines true family."
+    name: "Mystery Soul",
+    username: "_.3122007",
+    avatar: "member-05.jpg",
+    bio: "Kam bolte hain lekin jab bolte hain toh seedha dil par asar hota hai. Group ke mysterious aur sabse smart khiladi."
   },
   {
     id: "m-06",
-    name: "Noof",
-    username: "noof.lex__",
-    avatar: "assets/member-06.jpg",
-    bio: "Effortlessly stylish with an unmatched aesthetic sense. Brings cool composure, sharp humor, and signature energy that elevates the entire squad."
+    name: "Tabish",
+    username: "tabish_hoon",
+    avatar: "member-06.jpg",
+    bio: "Ekdum real aur unfiltered bande! Dosti ho ya late-night bakchodi, Tabish ka support hamesha pakka hota hai."
   },
   {
     id: "m-07",
-    name: "Pandit Girl",
-    username: "itzz_pandit_girl1771",
-    avatar: "assets/member-07.jpg",
-    bio: "Grace mixed with fearless confidence. Brightens up the dullest days with her expressive energy, quick wit, and genuine care for the circle."
+    name: "Mr. Pandey",
+    username: "mr.pandey_2208",
+    avatar: "member-07.jpg",
+    bio: "Group ke gyani baba aur sabse dangerous comebacks dene wale insaan. Inki baaton mein mazaak bhi hota hai aur samajhdari bhi."
   },
   {
     id: "m-08",
-    name: "Garveet Arora",
-    username: "garveet_arora_",
-    avatar: "assets/member-08.jpg",
-    bio: "The spark that keeps the momentum going. Always brings positive vibes, great humor, and turns every casual hangout into a golden memory."
+    name: "Noof",
+    username: "noof.lex__",
+    avatar: "member-08.jpg",
+    bio: "Aesthetic queen with cool vibes. Chat mein jab bhi aati hain, ek alag hi classy aur shandar mahaul ban jata hai."
   },
   {
     id: "m-09",
-    name: "Titili",
-    username: "titili7011",
-    avatar: "assets/member-09.jpg",
-    bio: "Free-spirited, vibrant, and full of life. Like her name, she brings color, warmth, and effortless joy wherever she goes in this group."
+    name: "Pandit Girl",
+    username: "itzz_pandit_girl1771",
+    avatar: "member-09.jpg",
+    bio: "Confidence aur cuteness ka perfect mix. Group ki shaan jo har cheez mein aage rehti hain."
   },
   {
     id: "m-10",
-    name: "Saana",
-    username: "saanaakh.___",
-    avatar: "assets/member-10.jpg",
-    bio: "Elegance with a golden heart. Thoughtful, expressive, and someone who makes every member feel valued—a true gem of the Golden Days family."
+    name: "Garveet Arora",
+    username: "garveet_arora_",
+    avatar: "member-10.jpg",
+    bio: "Hamesha high energy aur positive vibe ke sath rehne wale bande. Inke hone se group mein kabhi sannata nahi hota."
+  },
+  {
+    id: "m-11",
+    name: "Titili",
+    username: "titili7011",
+    avatar: "member-11.jpg",
+    bio: "Titili ki tarah yaha se wahan phudakne wali aur sabke chehre par muskan laane wali group ki jaan."
+  },
+  {
+    id: "m-12",
+    name: "Faizu",
+    username: "_btw.faizuuu_",
+    avatar: "member-12.jpg",
+    bio: "Desi style aur swag ke sath group ki raunak badhane wale Faizu bhai. Inki entry hi kaafi hoti hai."
+  },
+  {
+    id: "m-13",
+    name: "Besharam Babu",
+    username: "besharam_babu__",
+    avatar: "member-13.jpg",
+    bio: "Naam besharam hai par dil ke ekdum sachedaar! Inke mazaak aur memes ke bina group adhoora lagta hai."
+  },
+  {
+    id: "m-14",
+    name: "Mahakal Angad",
+    username: "___mahakal___angad___",
+    avatar: "member-14.jpg",
+    bio: "Mahakal ke bhakt aur dosti ke liye jaan dene wale. Shandaar personality ke malik jo sabko jod kar rakhte hain."
   }
 ];
 
