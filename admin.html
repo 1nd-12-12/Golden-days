@@ -116,6 +116,7 @@
       background: rgba(255,255,255,0.04);
       color: var(--text-main);
       transition: var(--transition-fast);
+      text-decoration: none;
     }
     .btn-sm:hover {
       border-color: var(--gold-light);
@@ -199,18 +200,16 @@
         <h1 class="section-title" style="font-size: 1.9rem;">𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ — Member Manager</h1>
       </div>
       <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <button id="exportCodeBtn" class="btn-sm" title="Copy updated members.js code for GitHub">📋 Copy members.js Code</button>
+        <button id="resetDefaultBtn" class="btn-sm btn-danger">🔄 Force Reset to New 14 Members</button>
         <a href="index.html" class="btn-gold-primary">← Back to Showcase</a>
       </div>
     </div>
 
-    <!-- Honest Browser Storage Disclosure -->
     <div class="storage-notice">
-      <strong>Important Note on Saving:</strong> Changes made here are saved inside your current browser's <code>localStorage</code> (so you will see them immediately on this device). Because GitHub Pages is a static host, edits made in <code>localStorage</code> do not automatically sync to other members' phones. To publish changes permanently for everyone, click <strong>"Copy members.js Code"</strong> above and paste it into your <code>members.js</code> file on GitHub.
+      <strong>Important Note:</strong> Agar aapko naye 14 members aur Aryan + Tanya turant dekhne hain, toh upar diye gaye <strong>"Force Reset to New 14 Members"</strong> button par click kar dein!
     </div>
 
     <div class="admin-grid">
-      <!-- Left: Add / Edit Form -->
       <div class="admin-card glass-panel">
         <h2 id="formTitle">Add New Member</h2>
         <form id="memberForm">
@@ -218,31 +217,22 @@
 
           <div class="form-group">
             <label for="memberName">Display Name *</label>
-            <input type="text" id="memberName" class="form-control" placeholder="e.g. Aarav Sharma" required />
+            <input type="text" id="memberName" class="form-control" placeholder="e.g. Aryan" required />
           </div>
 
           <div class="form-group">
             <label for="memberUsername">Instagram Username *</label>
-            <input type="text" id="memberUsername" class="form-control" placeholder="e.g. subkifavbachihu (without @)" required />
+            <input type="text" id="memberUsername" class="form-control" placeholder="e.g. 1nd_mp48 (without @)" required />
           </div>
 
           <div class="form-group">
-            <label for="memberAvatarPath">Profile Picture Path or URL</label>
-            <input type="text" id="memberAvatarPath" class="form-control" placeholder="assets/member-11.jpg" />
+            <label for="memberAvatarPath">Profile Picture Filename</label>
+            <input type="text" id="memberAvatarPath" class="form-control" placeholder="member-01.jpg" />
           </div>
 
           <div class="form-group">
-            <label for="memberAvatarFile">Or Upload DP from Device (JPG/PNG/WebP)</label>
-            <input type="file" id="memberAvatarFile" class="form-control" accept="image/jpeg,image/png,image/webp" />
-            <div class="dp-preview-box">
-              <img id="dpPreviewImg" src="" alt="DP Preview" />
-              <span style="font-size:0.78rem; color:var(--text-muted);">Live DP Preview (Auto-compressed for smooth storage)</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="memberBio">Personalised Introduction *</label>
-            <textarea id="memberBio" class="form-control" placeholder="Write a memorable introduction for this member..." required></textarea>
+            <label for="memberBio">Personalised Introduction (Hindi) *</label>
+            <textarea id="memberBio" class="form-control" placeholder="Write introduction..." required></textarea>
           </div>
 
           <div class="btn-row">
@@ -252,11 +242,9 @@
         </form>
       </div>
 
-      <!-- Right: Existing Members Roster & Reordering -->
       <div class="admin-card glass-panel">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.5rem;">
           <h2 style="margin:0;">Current Roster (<span id="adminCount">0</span>)</h2>
-          <button id="resetDefaultBtn" class="btn-sm btn-danger">Reset to Default 10</button>
         </div>
         <div id="adminMembersList"></div>
       </div>
@@ -267,7 +255,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       let members = window.GoldenDaysStore.getMembers();
-      let uploadedBase64 = "";
 
       const memberForm = document.getElementById("memberForm");
       const formTitle = document.getElementById("formTitle");
@@ -275,70 +262,15 @@
       const memberName = document.getElementById("memberName");
       const memberUsername = document.getElementById("memberUsername");
       const memberAvatarPath = document.getElementById("memberAvatarPath");
-      const memberAvatarFile = document.getElementById("memberAvatarFile");
-      const dpPreviewImg = document.getElementById("dpPreviewImg");
       const memberBio = document.getElementById("memberBio");
       const cancelEditBtn = document.getElementById("cancelEditBtn");
       const adminMembersList = document.getElementById("adminMembersList");
       const adminCount = document.getElementById("adminCount");
       const resetDefaultBtn = document.getElementById("resetDefaultBtn");
-      const exportCodeBtn = document.getElementById("exportCodeBtn");
-
-      dpPreviewImg.src = createFallbackDP("GD");
-
-      // Compress uploaded image via Canvas so localStorage never overflows
-      memberAvatarFile.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement("canvas");
-            const MAX_SIZE = 420;
-            let width = img.width;
-            let height = img.height;
-
-            if (width > height) {
-              if (width > MAX_SIZE) {
-                height *= MAX_SIZE / width;
-                width = MAX_SIZE;
-              }
-            } else {
-              if (height > MAX_SIZE) {
-                width *= MAX_SIZE / height;
-                height = MAX_SIZE;
-              }
-            }
-
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            uploadedBase64 = canvas.toDataURL("image/jpeg", 0.84);
-            dpPreviewImg.src = uploadedBase64;
-            memberAvatarPath.value = "";
-          };
-          img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-
-      memberAvatarPath.addEventListener("input", () => {
-        if (memberAvatarPath.value.trim()) {
-          uploadedBase64 = "";
-          dpPreviewImg.src = memberAvatarPath.value.trim();
-          dpPreviewImg.onerror = () => { dpPreviewImg.src = createFallbackDP(memberName.value || "GD"); };
-        }
-      });
 
       function resetForm() {
         editMemberId.value = "";
         memberForm.reset();
-        uploadedBase64 = "";
-        dpPreviewImg.src = createFallbackDP("GD");
         formTitle.textContent = "Add New Member";
         cancelEditBtn.classList.add("hidden");
       }
@@ -362,8 +294,8 @@
               </div>
             </div>
             <div class="member-item-actions">
-              <button class="order-btn" data-action="up" data-idx="${index}" ${index === 0 ? "disabled" : ""} title="Move Up">↑</button>
-              <button class="order-btn" data-action="down" data-idx="${index}" ${index === members.length - 1 ? "disabled" : ""} title="Move Down">↓</button>
+              <button class="order-btn" data-action="up" data-idx="${index}" ${index === 0 ? "disabled" : ""}>↑</button>
+              <button class="order-btn" data-action="down" data-idx="${index}" ${index === members.length - 1 ? "disabled" : ""}>↓</button>
               <button class="btn-sm" data-action="edit" data-idx="${index}">Edit</button>
               <button class="btn-sm btn-danger" data-action="delete" data-idx="${index}">Delete</button>
             </div>
@@ -395,20 +327,12 @@
           memberName.value = m.name;
           memberUsername.value = window.GoldenDaysStore.sanitizeUsername(m.username);
           memberBio.value = m.bio;
-          if (m.avatar && m.avatar.startsWith("data:")) {
-            uploadedBase64 = m.avatar;
-            memberAvatarPath.value = "";
-            dpPreviewImg.src = m.avatar;
-          } else {
-            uploadedBase64 = "";
-            memberAvatarPath.value = m.avatar || "";
-            dpPreviewImg.src = m.avatar || createFallbackDP(m.name);
-          }
+          memberAvatarPath.value = m.avatar || "";
           formTitle.textContent = `Edit Member: ${m.name}`;
           cancelEditBtn.classList.remove("hidden");
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else if (action === "delete") {
-          if (confirm(`Remove ${members[idx].name} from Golden Days?`)) {
+          if (confirm(`Remove ${members[idx].name}?`)) {
             members.splice(idx, 1);
             window.GoldenDaysStore.saveMembers(members);
             renderAdminList();
@@ -422,27 +346,15 @@
         const userVal = window.GoldenDaysStore.sanitizeUsername(memberUsername.value);
         const bioVal = memberBio.value.trim();
         const nextNum = String(members.length + 1).padStart(2, "0");
-        const avatarVal = uploadedBase64 || memberAvatarPath.value.trim() || `assets/member-${nextNum}.jpg`;
+        const avatarVal = memberAvatarPath.value.trim() || `member-${nextNum}.jpg`;
 
         if (editMemberId.value) {
           const targetIdx = members.findIndex(item => item.id === editMemberId.value);
           if (targetIdx !== -1) {
-            members[targetIdx] = {
-              ...members[targetIdx],
-              name: nameVal,
-              username: userVal,
-              avatar: avatarVal,
-              bio: bioVal
-            };
+            members[targetIdx] = { ...members[targetIdx], name: nameVal, username: userVal, avatar: avatarVal, bio: bioVal };
           }
         } else {
-          members.push({
-            id: "m-" + Date.now(),
-            name: nameVal,
-            username: userVal,
-            avatar: avatarVal,
-            bio: bioVal
-          });
+          members.push({ id: "m-" + Date.now(), name: nameVal, username: userVal, avatar: avatarVal, bio: bioVal });
         }
 
         window.GoldenDaysStore.saveMembers(members);
@@ -451,25 +363,12 @@
       });
 
       resetDefaultBtn.addEventListener("click", () => {
-        if (confirm("Reset all members back to the default 10 Golden Days members?")) {
+        if (confirm("Reset to default 14 members (Aryan, Tanya & others)?")) {
           members = window.GoldenDaysStore.resetToDefaults();
           renderAdminList();
           resetForm();
+          alert("Reset successful!");
         }
-      });
-
-      exportCodeBtn.addEventListener("click", () => {
-        const cleanExport = members.map((m, i) => ({
-          id: `m-${String(i + 1).padStart(2, "0")}`,
-          name: m.name,
-          username: window.GoldenDaysStore.sanitizeUsername(m.username),
-          avatar: m.avatar.startsWith("data:") ? `assets/member-${String(i + 1).padStart(2, "0")}.jpg` : m.avatar,
-          bio: m.bio
-        }));
-        const codeSnippet = `const DEFAULT_MEMBERS = ${JSON.stringify(cleanExport, null, 2)};`;
-        navigator.clipboard.writeText(codeSnippet).then(() => {
-          alert("Copied updated DEFAULT_MEMBERS array! Paste it into members.js so all visitors see your changes.");
-        });
       });
 
       renderAdminList();
