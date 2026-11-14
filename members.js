@@ -2,12 +2,11 @@
  * ============================================================================
  * GOLDEN DAYS — MEMBER DATA & STORAGE ENGINE (members.js)
  * ============================================================================
- * Updated: 1st member name set to Aryan (@1nd_mp48), 2nd is Tanya (@saanaakh.___).
+ * 1st: Aryan (@1nd_mp48), 2nd: Tanya (@saanaakh.___), followed by all 14 members.
  */
 
-const STORAGE_KEY = "golden_days_members_v4";
+const STORAGE_KEY = "golden_days_members_v5";
 
-// Automatic Royal Gold Monogram Fallback (agar photo load na ho)
 function createFallbackDP(name = "GD") {
   const clean = name.replace(/[^a-zA-Z0-9\s]/g, "").trim();
   const initials = clean
@@ -41,7 +40,6 @@ function createFallbackDP(name = "GD") {
   return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
 }
 
-// All 14 Members Ordered (Aryan 1st, Tanya 2nd)
 const DEFAULT_MEMBERS = [
   {
     id: "m-01",
@@ -143,7 +141,6 @@ const DEFAULT_MEMBERS = [
   }
 ];
 
-// Global Data API
 window.GoldenDaysStore = {
   getMembers() {
     try {
