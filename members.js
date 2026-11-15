@@ -2,10 +2,10 @@
  * ============================================================================
  * GOLDEN DAYS — MEMBER DATA & STORAGE ENGINE (members.js)
  * ============================================================================
- * 1st: Aryan (@1nd_mp48), 2nd: Tanya (@saanaakh.___), followed by all 14 members.
+ * Updated with 16 Members (Aryan 1st, Tanya 2nd, Nora, Amit, Pavitra papi & others)
  */
 
-const STORAGE_KEY = "golden_days_members_v5";
+const STORAGE_KEY = "golden_days_members_v6";
 
 function createFallbackDP(name = "GD") {
   const clean = name.replace(/[^a-zA-Z0-9\s]/g, "").trim();
@@ -92,7 +92,7 @@ const DEFAULT_MEMBERS = [
   },
   {
     id: "m-08",
-    name: "Noof",
+    name: "Pavitra papi(shaurya)",
     username: "noof.lex__",
     avatar: "member-08.jpg",
     bio: "Aesthetic queen with cool vibes. Chat mein jab bhi aati hain, ek alag hi classy aur shandar mahaul ban jata hai."
@@ -138,6 +138,20 @@ const DEFAULT_MEMBERS = [
     username: "___mahakal___angad___",
     avatar: "member-14.jpg",
     bio: "Mahakal ke bhakt aur dosti ke liye jaan dene wale. Shandaar personality ke malik jo sabko jod kar rakhte hain."
+  },
+  {
+    id: "m-15",
+    name: "Nora",
+    username: "luv.2.vanish",
+    avatar: "member-15.jpg",
+    bio: "Group ki charming aur unique personality, jinki presence se poora conversation lively aur memorable ho jata hai."
+  },
+  {
+    id: "m-16",
+    name: "Amit",
+    username: "cutie__one_____",
+    avatar: "member-16.jpg",
+    bio: "Cutieone wale Amit bhai, jo apne mast mazaak aur solid dosti se group ki har shaam ko shandar bana dete hain."
   }
 ];
 
