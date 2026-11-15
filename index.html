@@ -9,7 +9,6 @@
   <!-- Custom Royal Gold SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23050505'/><rect x='6' y='6' width='88' height='88' rx='18' fill='none' stroke='%23D4AF37' stroke-width='4'/><text x='50' y='67' font-family='serif' font-size='52' font-weight='bold' fill='%23D4AF37' text-anchor='middle'>G</text></svg>" />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -18,21 +17,17 @@
 </head>
 <body>
 
-  <!-- Custom Desktop Golden Cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Ambient Floating Golden Particles Canvas -->
   <canvas id="goldParticles"></canvas>
 
-  <!-- Background Audio Element (Optional MP3 inside assets folder) -->
-  <audio id="bgMusic" loop preload="none">
+  <!-- Background Audio Element -->
+  <audio id="bgMusic" loop preload="auto">
     <source src="assets/bg-music.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- =========================================================
-       CINEMATIC INTRO OVERLAY SCREEN
-  ========================================================== -->
+  <!-- CINEMATIC INTRO OVERLAY -->
   <section id="introOverlay" class="intro-overlay" aria-label="Welcome Screen">
     <div class="intro-radial-glow"></div>
     <div class="intro-content">
@@ -50,12 +45,9 @@
     </div>
   </section>
 
-  <!-- =========================================================
-       MAIN WEBSITE INTERFACE
-  ========================================================== -->
+  <!-- MAIN APP -->
   <div id="mainApp" class="main-app hidden-app">
     
-    <!-- Top Sticky Glass Navigation -->
     <header class="navbar">
       <div class="nav-container">
         <a href="#spotlightSection" class="nav-brand">𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ</a>
@@ -99,9 +91,6 @@
       </div>
     </header>
 
-    <!-- =========================================================
-         SECTION 1: CINEMATIC ONE-BY-ONE MEMBER SPOTLIGHT
-    ========================================================== -->
     <main>
       <section id="spotlightSection" class="spotlight-section">
         <div class="section-header">
@@ -117,7 +106,7 @@
               <div class="dp-frame">
                 <img id="spotAvatar" src="" alt="Member Profile Picture" />
               </div>
-              <div class="member-index-pill" id="spotIndex">MEMBER 01 / 14</div>
+              <div class="member-index-pill" id="spotIndex">MEMBER 01 / 16</div>
             </div>
 
             <div class="spotlight-info">
@@ -189,9 +178,6 @@
         </div>
       </section>
 
-      <!-- =========================================================
-           SECTION 2: ALL MEMBERS DIRECTORY & SEARCH GALLERY
-      ========================================================== -->
       <section id="gallerySection" class="gallery-section">
         <div class="section-header">
           <span class="section-kicker">THE ARCHIVE</span>
@@ -221,9 +207,6 @@
         </div>
       </section>
 
-      <!-- =========================================================
-           SECTION 3: GOLDEN DAYS MEMORIES & CHRONICLES
-      ========================================================== -->
       <section id="memoriesSection" class="memories-section">
         <div class="section-header">
           <span class="section-kicker">OUR LEGACY</span>
@@ -252,9 +235,6 @@
       </section>
     </main>
 
-    <!-- =========================================================
-         FOOTER & BACK TO TOP
-    ========================================================== -->
     <footer class="royal-footer">
       <div class="footer-content">
         <div class="footer-logo">𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ</div>
