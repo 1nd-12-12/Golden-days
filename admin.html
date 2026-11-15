@@ -87,19 +87,6 @@
       min-height: 105px;
       resize: vertical;
     }
-    .dp-preview-box {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 0.65rem;
-    }
-    .dp-preview-box img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold-primary);
-    }
     .btn-row {
       display: flex;
       gap: 0.75rem;
@@ -200,13 +187,13 @@
         <h1 class="section-title" style="font-size: 1.9rem;">𝑮𝒐𝒍𝒅𝒆𝒏 𝑫𝒂𝒚𝒔 ᥫ — Member Manager</h1>
       </div>
       <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <button id="resetDefaultBtn" class="btn-sm btn-danger">🔄 Force Reset to New 14 Members</button>
+        <button id="resetDefaultBtn" class="btn-sm btn-danger">🔄 Force Reset to New 16 Members</button>
         <a href="index.html" class="btn-gold-primary">← Back to Showcase</a>
       </div>
     </div>
 
     <div class="storage-notice">
-      <strong>Important Note:</strong> Agar aapko naye 14 members aur Aryan + Tanya turant dekhne hain, toh upar diye gaye <strong>"Force Reset to New 14 Members"</strong> button par click kar dein!
+      <strong>Important Note:</strong> Naye 16 members aur updated names turant dekhne ke liye upar diye gaye <strong>"Force Reset to New 16 Members"</strong> button par click kar dein!
     </div>
 
     <div class="admin-grid">
@@ -217,17 +204,17 @@
 
           <div class="form-group">
             <label for="memberName">Display Name *</label>
-            <input type="text" id="memberName" class="form-control" placeholder="e.g. Aryan" required />
+            <input type="text" id="memberName" class="form-control" placeholder="e.g. Nora" required />
           </div>
 
           <div class="form-group">
             <label for="memberUsername">Instagram Username *</label>
-            <input type="text" id="memberUsername" class="form-control" placeholder="e.g. 1nd_mp48 (without @)" required />
+            <input type="text" id="memberUsername" class="form-control" placeholder="e.g. luv.2.vanish (without @)" required />
           </div>
 
           <div class="form-group">
             <label for="memberAvatarPath">Profile Picture Filename</label>
-            <input type="text" id="memberAvatarPath" class="form-control" placeholder="member-01.jpg" />
+            <input type="text" id="memberAvatarPath" class="form-control" placeholder="member-15.jpg" />
           </div>
 
           <div class="form-group">
@@ -363,7 +350,7 @@
       });
 
       resetDefaultBtn.addEventListener("click", () => {
-        if (confirm("Reset to default 14 members (Aryan, Tanya & others)?")) {
+        if (confirm("Reset to default 16 members?")) {
           members = window.GoldenDaysStore.resetToDefaults();
           renderAdminList();
           resetForm();
